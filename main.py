@@ -33,7 +33,12 @@ def main():
                     except ValueError:
                         print("Veuillez entrer un numéro valide.")
             elif choice == 3:
-                pass
+                while True:
+                    try:
+                        market_choice = int(input("\nChoisissez une option du market place"))
+                    except ValueError:
+                        print("Veuillez entrer un numéro valide.")
+
             elif choice == 4:
                 pass
             elif choice == 5:
