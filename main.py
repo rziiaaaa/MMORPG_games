@@ -33,10 +33,8 @@ def main():
                     except ValueError:
                         print("Veuillez entrer un numéro valide.")
             elif choice == 3:
-                # Ajouter la logique pour l'achat d'items
                 pass
             elif choice == 4:
-                # Ajouter la logique pour le combat
                 pass
             elif choice == 5:
                 print("Au revoir !")

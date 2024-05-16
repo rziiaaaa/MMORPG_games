@@ -27,6 +27,7 @@ class Inventory:
         else:
             print("Indice invalide.")
 
+
 class Character():
     def __init__(self, name, health, attack, weapon="arc en bois"):
         self.name = name
@@ -46,7 +47,6 @@ class Character():
 
     def view_inventory(self):
         self.inventory.view_items()
-
 
     def view_details(self):
         character_class_name = type(self).__name__
@@ -78,6 +78,7 @@ class Character():
                     print("Indice invalide.")
             except ValueError:
                 print("Veuillez entrer un numéro valide.")
+
     @staticmethod
     def create_character():
         while True:
@@ -99,7 +100,7 @@ class Character():
                 class_index = int(input("Entrez le numéro de la classe: "))
                 if class_index < 1 or class_index > len(classes):
                     raise ValueError("Numéro de classe invalide.")
-                break  # Sort de la boucle si le numéro de classe est valide
+                break
             except ValueError as e:
                 print(e)
 
@@ -120,6 +121,8 @@ class Character():
         else:
             print("Classe de personnage invalide.")
             return None
+
+
 class Warrior(Character):
     def __init__(self, name, health=100, attack=25, weapon="Epée"):
         super().__init__(name, health, attack, weapon)
@@ -131,7 +134,7 @@ class Warrior(Character):
 
 
 class Knight(Character):
-    def __init__(self, name, health=120, attack=20,weapon="Epee", armor="Shield"):
+    def __init__(self, name, health=120, attack=20, weapon="Epee", armor="Shield"):
         super().__init__(name, health, attack, weapon)
         self.armor = armor
 
@@ -168,7 +171,7 @@ class Troll(Character):
 
 class Assassin(Character):
     def __init__(self, name, health=75, attack=35, speed=50, weapon="Dague"):
-        super().__init__(name, health, attack,weapon)
+        super().__init__(name, health, attack, weapon)
         self.speed = speed
 
     def quick_attack(self, target):
