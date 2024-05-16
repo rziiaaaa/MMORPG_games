@@ -6,22 +6,29 @@ class Inventory:
         self.items.append(item)
         print(f"{item} a été ajouté à l'inventaire.")
 
-    def remove_item(self, item):
-        if item in self.items:
-            self.items.remove(item)
+    def remove_item(self, index):
+        if 0 <= index < len(self.items):
+            item = self.items.pop(index)
             print(f"{item} a été retiré de l'inventaire.")
         else:
-            print(f"L'objet {item} n'est pas dans l'inventaire.")
+            print("Indice invalide.")
 
     def view_items(self):
         if self.items:
-            for item in self.items:
-                print(item)
+            for idx, item in enumerate(self.items, start=1):
+                print(f"{idx}. {item}")
         else:
             print("L'inventaire est vide.")
 
-class Character:
-    def __init__(self, name, health, attack, weapon):
+    def remove_item_by_index(self, index):
+        if 0 <= index < len(self.items):
+            item = self.items.pop(index)
+            print(f"{item} a été retiré de l'inventaire.")
+        else:
+            print("Indice invalide.")
+
+class Character():
+    def __init__(self, name, health, attack, weapon="arc en bois"):
         self.name = name
         self.health = health
         self.attack = attack
@@ -56,6 +63,21 @@ class Character:
         else:
             print(f"{self.name} subit {damage} dégâts. PV restants : {self.health}")
 
+    def remove_item_from_inventory(self):
+        self.view_inventory()
+        if self.inventory.items:
+            try:
+                index = int(input("Entrez le numéro de l'item à supprimer: ")) - 1
+                if 0 <= index < len(self.inventory.items):
+                    item = self.inventory.items[index]
+                    self.inventory.remove_item_by_index(index)
+                    if item == self.weapon:
+                        self.weapon = None
+                        print(f"L'arme {item} a été retirée du personnage.")
+                else:
+                    print("Indice invalide.")
+            except ValueError:
+                print("Veuillez entrer un numéro valide.")
     @staticmethod
     def create_character():
         while True:
@@ -83,23 +105,21 @@ class Character:
 
         character_class = classes[class_index - 1]
 
-        weapon = input("Entrez l'arme du personnage: ")
-
+        print(f"Création d'un personnage de classe {character_class}...")
 
         if character_class == "Warrior":
-            return Warrior(name, weapon=weapon)
+            return Warrior(name)
         elif character_class == "Knight":
-            return Knight(name, weapon=weapon)
+            return Knight(name)
         elif character_class == "Wizard":
-            return Wizard(name, weapon=weapon)
+            return Wizard(name)
         elif character_class == "Troll":
-            return Troll(name, weapon=weapon)
+            return Troll(name)
         elif character_class == "Assassin":
-            return Assassin(name, weapon=weapon)
+            return Assassin(name)
         else:
             print("Classe de personnage invalide.")
             return None
-
 class Warrior(Character):
     def __init__(self, name, health=100, attack=25, weapon="Epée"):
         super().__init__(name, health, attack, weapon)
@@ -139,11 +159,11 @@ class Troll(Character):
         self.resistance = resistance
 
     def reduce_damage(self, damage):
-        reduce_degat = damage - self.resistance
-        if reduce_degat < 0:
-            reduce_degat = 0
-        self.health -= reduce_degat
-        print(f"{self.name} subit {reduce_degat} points de dégâts !")
+        minimize_damage = damage - self.resistance
+        if minimize_damage < 0:
+            minimize_damage = 0
+        self.health -= minimize_damage
+        print(f"{self.name} subit {minimize_damage} points de dégâts !")
 
 
 class Assassin(Character):
