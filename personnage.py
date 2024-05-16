@@ -15,7 +15,6 @@ class Inventory:
 
     def view_items(self):
         if self.items:
-            print("Inventaire:")
             for item in self.items:
                 print(item)
         else:
