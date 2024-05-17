@@ -1,6 +1,3 @@
-import personnage, inventory
-
-
 class Market:
     def __init__(self):
         self.categories = {
