@@ -47,22 +47,24 @@ def main():
                     try:
                         market_choice = int(input("\nChoisissez une option du market place : "))
                         if market_choice == 1:
-                            print("\nCatégories disponibles:")
                             market.view_categories()
+                            try:
+                                category_idx = int(input("Choisissez une catégorie par son numéro : "))
+                                category = list(market.categories.keys())[category_idx - 1]
+                                market.view_items_in_category(category)
+                                item_idx = int(input("Entrez le numéro de l'item à acheter : "))
+                                market.buy(category, item_idx, new_character.inventory)
+                            except ValueError:
+                                print("Veuillez entrer un numéro valide.")
                         elif market_choice == 2:
-                            print("\nCatégories disponibles:")
-                            market.view_categories()
-                            category = input("\nChoisissez une catégorie : ")
-                            market.view_items_in_category(category)
-                            item_name = input("Entrez le nom de l'item à acheter : ")
-                            market.buy(category, item_name, new_character.inventory)
+                            print("\nVotre Inventaire:")
+                            new_character.view_inventory()
+                            item_name = input("Entrez le numéro de l'item à vendre : ")
+                            market.sell(item_name, new_character.inventory)
                         elif market_choice == 3:
-                            # Ajouter la logique pour vendre un item
-                            pass
-                        elif market_choice == 4:
                             break
                         else:
-                            print("Option invalide. Veuillez choisir un numéro entre 1 et 4.")
+                            print("Option invalide. Veuillez choisir un chiffre entre 1 et 3.")
                     except ValueError:
                         print("Veuillez entrer un numéro valide.")
             elif choice == 4:
