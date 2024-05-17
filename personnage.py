@@ -7,6 +7,7 @@ class Character:
         self.health = health
         self.attack = attack
         self.weapon = weapon
+        self.attack
         self.inventory = inventory.Inventory()
         if weapon:
             self.inventory.add_item(weapon)
