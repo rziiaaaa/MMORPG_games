@@ -1,4 +1,4 @@
-import personnage
+import character
 
 
 class Inventory:

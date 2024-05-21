@@ -1,10 +1,9 @@
 from market import Market
-
-import personnage
+import character
 
 
 def main():
-    new_character = personnage.Character.create_character()
+    new_character = character.Character.create_character()
     market = Market()
 
     while True:
