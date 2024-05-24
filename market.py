@@ -6,37 +6,43 @@ class Market:
             "Potions": ["Potion de santé", "Potion de force", "Potion de vitesse"]
         }
 
-    def view_categories(self):
-        print("Catégories disponibles :")
-        for idx, category in enumerate(self.categories.keys(), start=1):
-            print(f"{idx}. {category}")
+    def view_stock(self):
+        for category in self.categories:
+            print(f"\n{category}:")
+            for idx, item in enumerate(self.categories[category], start=1):
+                print(f"{idx}. {item}")
 
     def view_items_in_category(self, category):
         if category in self.categories:
-            print(f"Articles dans la catégorie '{category}' :")
             for idx, item in enumerate(self.categories[category], start=1):
                 print(f"{idx}. {item}")
         else:
             print(f"La catégorie '{category}' n'existe pas.")
 
-    def buy(self, category, item_idx, character_inventory):
-        if category in self.categories:
-            if 0 < item_idx <= len(self.categories[category]):
-                item = self.categories[category].pop(item_idx - 1)
+    def buy(self, category_idx, item_idx, character_inventory):
+        category_keys = list(self.categories.keys())
+        if 0 <= category_idx < len(category_keys):
+            category = category_keys[category_idx]
+            if 0 <= item_idx < len(self.categories[category]):
+                item = self.categories[category].pop(item_idx)
                 character_inventory.add_item(item)
+                print(f"{item} acheté avec succès !")
+                return item
             else:
-                print(f"Indice invalide pour la catégorie '{category}'.")
+                print("Indice d'item invalide.")
         else:
-            print(f"La catégorie '{category}' n'existe pas.")
+            print("Indice de catégorie invalide.")
+        return None
 
-    def sell(self, item_name, character_inventory):
-        if item_name in character_inventory.items:
-            for category in self.categories.values():
-                if item_name in category:
-                    character_inventory.remove_item_by_name(item_name)
-                    category.append(item_name)
-                    print(f"{item_name} vendu avec succès !")
-                    return
-            print(f"Impossible de vendre {item_name}. Catégorie non trouvée.")
+    def sell(self, category_idx, item_idx, character_inventory):
+        if 0 <= item_idx < len(character_inventory.items):
+            item = character_inventory.items[item_idx]
+            category_keys = list(self.categories.keys())
+            if 0 <= category_idx < len(category_keys):
+                category = category_keys[category_idx]
+                character_inventory.remove_item_by_index(item_idx)
+                self.categories[category].append(item)
+            else:
+                print(f"Indice de catégorie invalide.")
         else:
-            print(f"{item_name} n'est pas dans votre inventaire.")
+            print(f"Indice invalide dans votre inventaire.")
