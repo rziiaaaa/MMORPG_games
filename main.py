@@ -1,5 +1,7 @@
+import monster
 from market import Market
 import character
+
 
 def main():
     new_character = character.Character.create_character()
@@ -70,7 +72,8 @@ def main():
                     except ValueError:
                         print("Veuillez entrer un numéro valide.")
             elif choice == 4:
-                pass
+                new_monster = monster.Monster.random_monster()
+                combat(new_character, new_monster)
             elif choice == 5:
                 print("Au revoir !")
                 break
@@ -78,6 +81,30 @@ def main():
                 print("Option invalide. Veuillez choisir un numéro entre 1 et 5.")
         except ValueError:
             print("Veuillez entrer un numéro valide.")
+
+
+def combat(character, monster):
+    print(f"Un combat commence entre {character.name} et {monster.name} !")
+    while character.alive() and monster.is_alive():
+        action = input("Voulez-vous attaquer (a) ou fuir (f) ? ").lower()
+        if action == 'a':
+            print(f"---- {character.name} attaque {monster.name} ----")
+            character.attacking(monster)
+            if monster.is_alive():
+                print(f"---- {monster.name} attaque {character.name} ----")
+                monster.attack(character)
+            else:
+                print(f"{monster.name} a été vaincu !")
+                break
+            if not character.alive():
+                print(f"{character.name} a été vaincu !")
+        elif action == 'f':
+            print(f"{character.name} a fui le combat !")
+            break
+        else:
+            print("Action invalide. Veuillez choisir 'a' pour attaquer ou 'f' pour fuir.")
+
+
 
 if __name__ == "__main__":
     main()

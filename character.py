@@ -1,6 +1,5 @@
 import inventory
 
-
 class Character:
     def __init__(self, name, health, attack, weapon="arc en bois"):
         self.name = name
@@ -12,8 +11,7 @@ class Character:
             self.inventory.add_item(weapon)
 
     def attacking(self, target):
-        target.health -= self.attack
-        print(f"{self.name} attaque {target.name}")
+        target.suffer_damage(self.attack)
 
     def alive(self):
         return self.health > 0
@@ -31,9 +29,7 @@ class Character:
 
     def suffer_damage(self, damage):
         self.health -= damage
-        if self.health <= 0:
-            print(f"{self.name} a été vaincu !")
-        else:
+        if self.health >= 0:
             print(f"{self.name} subit {damage} dégâts. PV restants : {self.health}")
 
     def remove_item_from_inventory(self):
