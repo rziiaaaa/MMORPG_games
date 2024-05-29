@@ -1,5 +1,6 @@
 import inventory
 
+
 class Character:
     def __init__(self, name, health, attack, weapon="arc en bois"):
         self.name = name
